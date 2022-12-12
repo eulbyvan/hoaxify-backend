@@ -1,9 +1,12 @@
 package com.eulbyvan.hoaxifybackend;
 
 import com.eulbyvan.hoaxifybackend.model.User;
+import com.eulbyvan.hoaxifybackend.repo.IUserRepo;
 import com.eulbyvan.hoaxifybackend.service.IUserService;
+import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +37,12 @@ public class UserControllerTest {
     TestRestTemplate testRestTemplate;
 
     @Autowired
-    IUserService userService;
+    IUserRepo userRepo;
 
+    @Before
+    public void cleanup() {
+        userRepo.deleteAll();
+    }
 
     @Test
     public void postUser_whenUserIsValid_receiveOk() {
@@ -58,6 +65,6 @@ public class UserControllerTest {
 
         testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
 
-        assertThat(userService.add(user)).isEqualTo(user);
+        assertThat(userRepo.count()).isEqualTo(1);
     }
 }
