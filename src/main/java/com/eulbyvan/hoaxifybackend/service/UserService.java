@@ -11,10 +11,14 @@ import org.springframework.stereotype.Service;
  * @since 13/12/2022
  */
 
-@RequiredArgsConstructor
 @Service
 public class UserService implements IUserService{
     private IUserRepo userRepo;
+
+    public UserService(IUserRepo userRepo) {
+        super();
+        this.userRepo = userRepo;
+    }
 
     @Override
     public User add(User user) {
