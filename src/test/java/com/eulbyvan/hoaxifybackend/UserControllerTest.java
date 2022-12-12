@@ -2,13 +2,9 @@ package com.eulbyvan.hoaxifybackend;
 
 import com.eulbyvan.hoaxifybackend.model.User;
 import com.eulbyvan.hoaxifybackend.repo.IUserRepo;
-import com.eulbyvan.hoaxifybackend.service.IUserService;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -30,7 +26,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class UserControllerTest {
     private static final String API_1_0_USERS = "/api/1.0/users";
     @Autowired
