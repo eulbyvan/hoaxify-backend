@@ -2,6 +2,8 @@ package com.eulbyvan.hoaxifybackend.controller;
 
 import com.eulbyvan.hoaxifybackend.model.User;
 import com.eulbyvan.hoaxifybackend.service.IUserService;
+import com.eulbyvan.hoaxifybackend.shared.response.GenericResponse;
+import com.eulbyvan.hoaxifybackend.shared.response.SuccessResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * @author stu (https://www.eulbyvan.com/)
@@ -23,9 +27,11 @@ public class UserController {
     IUserService userService;
 
     @PostMapping()
-    public ResponseEntity<User> addUser(@RequestBody User req) {
-        User res = userService.add(req);
+    public ResponseEntity<GenericResponse> addUser(@RequestBody User req) {
+        User user = userService.add(req);
 
-        return ResponseEntity.ok().body(res);
+        GenericResponse res = new SuccessResponse<User>("01", "created", List.of(user));
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 }

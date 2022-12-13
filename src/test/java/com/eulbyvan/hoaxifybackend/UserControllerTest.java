@@ -2,6 +2,7 @@ package com.eulbyvan.hoaxifybackend;
 
 import com.eulbyvan.hoaxifybackend.model.User;
 import com.eulbyvan.hoaxifybackend.repo.IUserRepo;
+import com.eulbyvan.hoaxifybackend.shared.response.GenericResponse;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,15 +44,7 @@ public class UserControllerTest {
     public void postUser_whenUserIsValid_receiveOk() {
         User user = createValidUser();
         ResponseEntity<Object> response = testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
-    }
-
-    private static User createValidUser() {
-        User user = new User();
-        user.setUsername(UUID.randomUUID().toString());
-        user.setDisplayName("test-display");
-        user.setPassword("P@ssw0rd");
-        return user;
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
     }
 
     @Test
@@ -61,5 +54,20 @@ public class UserControllerTest {
         testRestTemplate.postForEntity(API_1_0_USERS, user, Object.class);
 
         assertThat(userRepo.count()).isEqualTo(1);
+    }
+
+    @Test
+    public void postUser_whenUserIsValid_receiveSuccessMessage() {
+        User user = createValidUser();
+        ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
+        assertThat(response.getBody().getCode()).isNotNull();
+    }
+
+    private static User createValidUser() {
+        User user = new User();
+        user.setUsername(UUID.randomUUID().toString());
+        user.setDisplayName("test-display");
+        user.setPassword("P@ssw0rd");
+        return user;
     }
 }
