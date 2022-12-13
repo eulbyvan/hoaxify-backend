@@ -57,11 +57,28 @@ public class UserControllerTest {
     }
 
     @Test
-    public void postUser_whenUserIsValid_receiveSuccessMessage() {
+    public void postUser_whenUserIsValid_recieveSuccessMessage() {
         User user = createValidUser();
         ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
-        assertThat(response.getBody().getCode()).isNotNull();
+        assertThat(response.getBody().getMessage()).isNotNull();
     }
+
+    @Test
+    public void postUser_whenUserIsValid_recieveCreated() {
+        User user = createValidUser();
+        ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    }
+
+//    @Test
+//    public void getUsers_receiveSuccessMessage() {
+//        List<User> dummyUsers = new ArrayList<>();
+//        dummyUsers.add(new User());
+//
+//        List<User> actualUsers = userRepo.findAll();
+//
+//        assertThat()
+//    }
 
     private static User createValidUser() {
         User user = new User();
