@@ -1,5 +1,9 @@
 package com.eulbyvan.hoaxifybackend.shared.response;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
 /**
@@ -8,6 +12,7 @@ import java.util.List;
  * @since 13/12/2022
  */
 
+@Data
 public class SuccessResponse<T> extends GenericResponse{
     private List<T> data;
 

@@ -30,7 +30,7 @@ public class UserController {
     public ResponseEntity<GenericResponse> addUser(@RequestBody User req) {
         User user = userService.add(req);
 
-        GenericResponse res = new SuccessResponse<User>("01", "created", List.of(user));
+        SuccessResponse<User> res = new SuccessResponse<User>("01", "created", List.of(user));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
