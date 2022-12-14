@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -68,6 +69,18 @@ public class UserControllerTest {
         User user = createValidUser();
         ResponseEntity<GenericResponse> response = testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    }
+
+    @Test
+    public void postUser_whenUserIsValid_passwordIsHashedInDatabase() {
+        User user = createValidUser();
+        testRestTemplate.postForEntity(API_1_0_USERS, user, GenericResponse.class);
+
+        List<User> users = userRepo.findAll();
+
+        User userInDb = users.get(0);
+
+        assertThat(userInDb.getPassword()).isNotEqualTo(user.getPassword());
     }
 
 //    @Test
