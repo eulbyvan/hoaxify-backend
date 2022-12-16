@@ -5,6 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 /**
  * @author stu (https://www.eulbyvan.com/)
@@ -21,10 +25,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank(message = "Display name is mandatory")
+    @NotNull(message = "Display name cannot be null")
+    @Size(min = 3, max = 255)
+    @Column(name = "display_name", length = 100, nullable = false)
+    private String displayName;
+    @NotBlank(message = "username is mandatory")
+    @NotNull(message = "username cannot be null")
+    @Size(min = 3, max = 255)
     @Column(name = "username", unique = true, nullable = false)
     private String username;
-    @Column(name = "display_name")
-    private String displayName;
-    @Column(name = "password", length = 100, nullable = false)
+    @NotBlank(message = "password is mandatory")
+    @NotNull(message = "password cannot be null")
+    @Size(min = 8, max = 255)
+    @Column(name = "password", nullable = false)
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d).*$")
     private String password;
 }

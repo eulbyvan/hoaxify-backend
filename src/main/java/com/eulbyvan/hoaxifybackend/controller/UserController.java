@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -27,11 +28,9 @@ public class UserController {
     IUserService userService;
 
     @PostMapping()
-    public ResponseEntity<GenericResponse> addUser(@RequestBody User req) {
+    public ResponseEntity<GenericResponse> addUser(@Valid @RequestBody User req) {
         User user = userService.add(req);
-
         SuccessResponse<User> res = new SuccessResponse<User>("01", "created", List.of(user));
-
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 }
