@@ -39,6 +39,6 @@ public class User {
     @NotNull(message = "password cannot be null")
     @Size(min = 8, max = 255)
     @Column(name = "password", nullable = false)
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d).*$")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
     private String password;
 }

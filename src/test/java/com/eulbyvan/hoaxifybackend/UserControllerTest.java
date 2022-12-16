@@ -219,9 +219,9 @@ public class UserControllerTest {
 
     private static User createValidUser() {
         User user = new User();
-        user.setUsername(UUID.randomUUID().toString());
+        user.setUsername("test-username");
         user.setDisplayName("test-display");
-        user.setPassword("P@ssw0rd");
+        user.setPassword("P@4354erfg5t234r34tJHJKHKJHAS");
         return user;
     }
 }
