@@ -25,20 +25,17 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank(message = "Display name is mandatory")
-    @NotNull(message = "Display name cannot be null")
+    @NotNull
     @Size(min = 3, max = 255)
     @Column(name = "display_name", length = 100, nullable = false)
     private String displayName;
-    @NotBlank(message = "username is mandatory")
-    @NotNull(message = "username cannot be null")
+    @NotNull(message = "{hoaxify.constraints.username.NotNull.message}")
     @Size(min = 3, max = 255)
     @Column(name = "username", unique = true, nullable = false)
     private String username;
-    @NotBlank(message = "password is mandatory")
-    @NotNull(message = "password cannot be null")
+    @NotNull
     @Size(min = 8, max = 255)
     @Column(name = "password", nullable = false)
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "password must be a combination of uppercase letters, lowercase letters, symbols, and numbers")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "{hoaxify.constraints.password.Pattern.message}")
     private String password;
 }
