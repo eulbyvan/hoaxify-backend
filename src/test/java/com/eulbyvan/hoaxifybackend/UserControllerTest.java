@@ -15,7 +15,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -221,7 +220,7 @@ public class UserControllerTest {
         User user = new User();
         user.setUsername("test-username");
         user.setDisplayName("test-display");
-        user.setPassword("P@4354erfg5t234r34tJHJKHKJHAS");
+        user.setPassword("P@ssw0rd");
         return user;
     }
 }
