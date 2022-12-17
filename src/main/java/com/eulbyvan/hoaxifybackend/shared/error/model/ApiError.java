@@ -1,4 +1,4 @@
-package com.eulbyvan.hoaxifybackend.shared.exception.model;
+package com.eulbyvan.hoaxifybackend.shared.error.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

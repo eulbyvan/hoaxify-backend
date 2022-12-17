@@ -1,6 +1,6 @@
-package com.eulbyvan.hoaxifybackend.shared.exception.controller;
+package com.eulbyvan.hoaxifybackend.shared.error.controller;
 
-import com.eulbyvan.hoaxifybackend.shared.exception.model.ApiError;
+import com.eulbyvan.hoaxifybackend.shared.error.model.ApiError;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

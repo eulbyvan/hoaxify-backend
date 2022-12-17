@@ -22,7 +22,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @ActiveProfiles("test")
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class UserRepositoryTest {
 
     @Autowired
@@ -39,10 +38,15 @@ public class UserRepositoryTest {
         user.setDisplayName("test-display");
 
         testEntityManager.persist(user);
-
         User userInDb = userRepo.findByUsername("test-user");
 
         assertThat(userInDb).isNotNull();
+    }
+
+    @Test
+    public void findByUsername_whenUserDoesNotExist_returnsNull() {
+        User userInDb = userRepo.findByUsername("nonexistinguser");
+        assertThat(userInDb).isNull();
     }
 
 }

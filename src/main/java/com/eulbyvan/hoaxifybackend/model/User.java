@@ -1,5 +1,6 @@
 package com.eulbyvan.hoaxifybackend.model;
 
+import com.eulbyvan.hoaxifybackend.shared.annotation.UniqueUsername;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,7 @@ public class User {
     @NotNull(message = "{hoaxify.constraints.username.NotNull.message}")
     @Size(min = 3, max = 255)
     @Column(name = "username")
+    @UniqueUsername
     private String username;
     @NotNull
     @Size(min = 8, max = 255)

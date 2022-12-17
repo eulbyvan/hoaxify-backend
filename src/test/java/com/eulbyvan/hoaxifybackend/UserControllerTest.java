@@ -2,7 +2,7 @@ package com.eulbyvan.hoaxifybackend;
 
 import com.eulbyvan.hoaxifybackend.model.User;
 import com.eulbyvan.hoaxifybackend.repo.IUserRepo;
-import com.eulbyvan.hoaxifybackend.shared.exception.model.ApiError;
+import com.eulbyvan.hoaxifybackend.shared.error.model.ApiError;
 import com.eulbyvan.hoaxifybackend.shared.response.GenericResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -259,8 +259,16 @@ public class UserControllerTest {
         userRepo.save(createValidUser());
         User user = createValidUser();
         ResponseEntity<Object> response = postSignup(user, Object.class);
-
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void postUser_whenAnotherUserHasSameName_receiveMessageOfDuplicateUsername() {
+        userRepo.save(createValidUser());
+        User user = createValidUser();
+        ResponseEntity<ApiError> response = postSignup(user, ApiError.class);
+        Map<String, String> validationErrors = response.getBody().getValidationErrors();
+        assertThat(validationErrors.get("username")).isEqualTo("username is already taken");
     }
 
     public <T> ResponseEntity<T> postSignup(Object request, Class<T> response) {
