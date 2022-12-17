@@ -2,6 +2,7 @@ package com.eulbyvan.hoaxifybackend;
 
 import com.eulbyvan.hoaxifybackend.model.User;
 import com.eulbyvan.hoaxifybackend.repo.IUserRepo;
+import com.eulbyvan.hoaxifybackend.shared.error.model.ApiError;
 import com.eulbyvan.hoaxifybackend.shared.response.GenericResponse;
 import org.junit.Before;
 import org.junit.Test;
@@ -200,6 +201,20 @@ public class UserControllerTest {
         user.setPassword("123456789");
         ResponseEntity<Object> response = postSignup(user, Object.class);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.BAD_REQUEST);
+    }
+
+    @Test
+    public void postUser_whenUserIsInvalid_receiveApiError() {
+        User user = new User();
+        ResponseEntity<ApiError> response = postSignup(user, ApiError.class);
+        assertThat(response.getBody().getUrl()).isEqualTo(API_1_0_USERS);
+    }
+
+    @Test
+    public void postUser_whenUserIsInvalid_receiveApiErrorWithValidationError() {
+        User user = new User();
+        ResponseEntity<ApiError> response = postSignup(user, ApiError.class);
+        assertThat(response.getBody().getValidationErrors().size()).isEqualTo(3);
     }
 
     public <T> ResponseEntity<T> postSignup(Object request, Class<T> response) {

@@ -31,6 +31,7 @@ public class UserController {
     public ResponseEntity<GenericResponse> addUser(@Valid @RequestBody User req) {
         User user = userService.add(req);
         SuccessResponse<User> res = new SuccessResponse<User>("01", "created", List.of(user));
+
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 }
